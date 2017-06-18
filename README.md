@@ -1,6 +1,6 @@
-# wrikewebhooks
+# nuxtbase
 
-> Wrike Webhooks Admin
+> Nuxt Base
 
 ## Build Setup
 
