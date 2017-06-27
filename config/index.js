@@ -13,5 +13,12 @@ module.exports = {
       "clientSecret": process.env.WRIKE_CLIENT_SECRET || "GfAZV7imRIERXwXhSsL8jTW5eW4aEyasO2t8iM8YI7Na4LRSi0IOKfa1sPlEQdDj",
       "callbackURL": "http://127.0.0.1:3000/auth/callback"
     }
+  },
+  "mongodb": {
+    "uri": "mongodb://localhost:32768/wrikeapiconsole",
+    "options": {
+      "user": "",
+      "pass": ""
+    }
   }
 }

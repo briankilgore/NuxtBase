@@ -3,6 +3,7 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import session from 'express-session'
 import localtunnel from 'localtunnel'
+import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 dotenv.config()
 import config from '../config'
@@ -24,13 +25,12 @@ app.use(session({
   cookie: { maxAge: 3600000 }
 }));
 
-// Import API Routes
-import api from './api'
-app.use(api)
+// Connect to mongodb
+mongoose.connect(config.mongodb.uri, config.mongodb.options);
 
-// Import auth Routes
-import auth from './auth.js'
-app.use(auth)
+// Import API components
+import routes from './api/routes'
+app.use(routes)
 
 // Start nuxt.js
 async function start() {

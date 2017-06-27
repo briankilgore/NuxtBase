@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1 style="text-align: center">Welcome to the Wrike API Console</h1>
+    <h2 style="text-align: center">Welcome to the Wrike API Console</h2>
   </div>
 </template>
 
@@ -37,6 +37,9 @@ export default {
       this.$store.dispatch('logout')
     }
   },
+  mounted () {
+    this.$store.dispatch('setPageTitle', 'Home')
+  },
   components: {
     Logo
   }
@@ -44,9 +47,6 @@ export default {
 </script>
 
 <style>
-.container {
-  padding: 100px;
-}
 .error {
   color: red;
 }

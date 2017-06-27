@@ -2,24 +2,35 @@ import axios from 'axios'
 import querystring from 'querystring'
 
 export const state = () => ({
-  list: []
+  list: [],
+  loading: false
 })
 
 export const mutations = {
-  set: function (state, webhooks) {
+  add: function (state, webhooks) {
     state.list.push(...webhooks)
+    state.loading = false
+  },
+  set: function (state, webhooks) {
+    state.list = webhooks
+    state.loading = false
   },
   delete: function (state, webhookId) {
     for (var i = 0; i < state.list.length; i++) {
       if (state.list[i].id === webhookId) {
         state.list.splice(i, 1)
+        state.loading = false
       }
     }
+  },
+  loading: function (state, loading) {
+    state.loading = loading
   }
 }
 
 export const actions = {
   fetch ({ state, dispatch, commit, rootState, rootGetters }, activeAccount) {
+    commit('loading', true)
     rootGetters.getAccessToken
     .then((accessToken) => {
       var url = (!activeAccount) ? 'https://www.wrike.com/api/v3/webhooks' : 'https://www.wrike.com/api/v3/accounts/' + activeAccount + '/webhooks'
@@ -54,7 +65,7 @@ export const actions = {
       })
       .then((response) => {
         console.log('Webhook added', response)
-        commit('set', response.data.data)
+        commit('add', response.data.data)
       })
       .catch((error) => {
         console.error(error)

@@ -1,7 +1,7 @@
 // import axios from 'axios'
 
 export default function ({ store, redirect, error }, callback) {
-  console.log('auth middleware', store.state)
+  // console.log('auth middleware', store.state)
 
   // If user not connected, redirect to /
   if (!store.state.authUser) {

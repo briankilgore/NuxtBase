@@ -1,12 +1,16 @@
 import axios from 'axios'
 
 export const state = () => ({
-  authUser: null
+  authUser: null,
+  pageTitle: 'Home'
 })
 
 export const mutations = {
   SET_USER: function (state, authUser) {
     state.authUser = authUser
+  },
+  SET_PAGE_TITLE: function (state, pageTitle) {
+    state.pageTitle = pageTitle
   }
 }
 
@@ -36,15 +40,21 @@ export const actions = {
     .then(() => {
       commit('SET_USER', null)
     })
+  },
+  setPageTitle ({ commit }, pageTitle) {
+    commit('SET_PAGE_TITLE', pageTitle)
   }
 }
 
 export const getters = {
   getAccessToken (state) {
+    console.log('test')
     return new Promise((resolve, reject) => {
       var authInfo = state.authUser
+      console.log(authInfo)
 
-      if (authInfo && authInfo.token_expiration < (Date.now() - 10000) && authInfo.refresh_token) { // if expired, try to get new access token from refresh token
+      if (authInfo && authInfo.token_expiration) { // if expired, try to get new access token from refresh token
+        console.log('refreshing token....')
         axios.get('/auth/refresh', {
           headers: {
             'x-refresh-token': authInfo.refresh_token

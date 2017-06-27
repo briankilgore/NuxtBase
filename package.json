@@ -20,13 +20,16 @@
     "express": "^4.15.3",
     "express-session": "^1.15.3",
     "lodash": "^4.17.4",
+    "mongoose": "^4.10.7",
     "nuxt": "^1.0.0-alpha.3",
     "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
     "passport-oauth": "^1.0.0",
     "passport-oauth2-middleware": "^1.0.2",
     "passport-oauth2-refresh": "^1.0.0",
     "querystring": "^0.2.0",
     "source-map-support": "^0.4.15",
+    "vuetify": "^0.12.7",
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {

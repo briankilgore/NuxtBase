@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import axios from 'axios'
 import querystring from 'querystring'
-import config from '../config'
+import config from '../../../config'
 
 var options = {
   baseURL: 'https://www.wrike.com'

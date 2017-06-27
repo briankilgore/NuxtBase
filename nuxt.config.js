@@ -6,11 +6,12 @@ module.exports = {
     title: 'starter',
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui' },
       { hid: 'description', name: 'description', content: 'Nuxt.js project' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'stylesheet', type: 'text/css', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' }
     ]
   },
   /*
@@ -22,7 +23,7 @@ module.exports = {
   */
   css: [
     '~assets/css/main.css',
-    'element-ui/lib/theme-default/index.css'
+    'vuetify/dist/vuetify.min.css'
   ],
   /*
   ** Add axios globally
@@ -44,7 +45,7 @@ module.exports = {
     }
   },
   plugins: [
-    'plugins/element-ui.js',
+    '~plugins/vuetify.js',
     { src: '~plugins/axios.js', injectAs: '$http' }
   ]
 }

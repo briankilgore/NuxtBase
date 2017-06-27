@@ -1,25 +1,30 @@
 <template>
-  <el-dialog title="Add Webhook" :visible.sync="showModal">
-    <el-form label-position="right" label-width="100px">
-      <el-form-item label="Account">
-        <el-select v-model="account" clearable placeholder="Select" style="width: 100%;">
-          <el-option
-            v-for="(item, index) in accounts"
-            :key="index"
-            :label="item.name"
-            :value="item.id">
-          </el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="Hook URL">
-        <el-input v-model="hookUrl"></el-input>
-      </el-form-item>
-    </el-form>
-    <span slot="footer" class="dialog-footer">
-      <el-button @click="cancel">Cancel</el-button>
-      <el-button type="primary" @click="submit">Create</el-button>
-    </span>
-  </el-dialog>
+  <v-layout row justify-center>
+    <v-dialog v-model="dialog" width="800" persistent>
+      <v-btn primary light flat slot="activator">Add</v-btn>
+      <v-card>
+        <v-card-row>
+          <v-card-title>Add Webhook</v-card-title>
+        </v-card-row>
+        <v-card-row>
+          <v-card-text>
+            <v-select
+              label="Account"
+              required
+              v-bind:items="accounts"
+              v-model="account"
+            ></v-select>
+            <v-text-field label="Webhook URL" required v-model="hookUrl"></v-text-field>
+            <small>* indicates required field</small>
+          </v-card-text>
+        </v-card-row>
+        <v-card-row actions>
+          <v-btn class="blue--text darken-1" flat v-on:click.native="cancel">Close</v-btn>
+          <v-btn class="blue--text darken-1" flat v-on:click.native="submit">Save</v-btn>
+        </v-card-row>
+      </v-card>
+    </v-dialog>
+  </v-layout>
 </template>
 
 <script>
@@ -36,27 +41,35 @@ export default {
     return {
       showModal: this.show,
       account: '',
-      hookUrl: ''
+      hookUrl: '',
+      dialog: false
     }
   },
   computed: {
     accounts () {
-      return this.$store.state.accounts.list
+      var list = this.$store.state.accounts.list
+      for (var i = 0; i < list.length; i++) {
+        list[i].text = list[i].name
+      }
+      return list
     }
   },
   methods: {
     submit () {
       this.$store.dispatch('webhooks/add', {
-        account: this.account,
+        account: this.account.id,
         hookUrl: this.hookUrl
       })
-      this.$emit('update:show', false)
+      console.log(this)
+      this.close()
     },
     cancel () {
-      this.$emit('update:show', false)
+      this.close()
     },
     close () {
-      console.log(this)
+      this.account = ''
+      this.hookUrl = ''
+      this.dialog = false
     }
   },
   watch: {
